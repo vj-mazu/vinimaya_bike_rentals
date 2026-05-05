@@ -55,7 +55,7 @@ export function Hero() {
           preload="auto"
           className="absolute left-1/2 top-1/2 h-[100vw] w-[100vh] -translate-x-1/2 -translate-y-1/2 -rotate-90 object-cover"
         >
-          <source src="/hero-bg.mp4" type="video/mp4" />
+          <source src="/hero-new.mp4" type="video/mp4" />
         </video>
 
         {/* Lighter overlays for better video visibility on desktop */}
