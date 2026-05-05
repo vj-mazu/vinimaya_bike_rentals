@@ -106,7 +106,7 @@ export function Navbar({ onCartClick, cartCount }: { onCartClick: () => void; ca
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
             className="overflow-hidden border-t border-white/[0.05] bg-[#0a0a0a]/95 backdrop-blur-2xl lg:hidden"
           >
             <ul className="grid gap-1 p-4">

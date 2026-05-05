@@ -92,7 +92,7 @@ export function Preloader() {
             scale: 1.15,
             filter: "blur(30px)",
           }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] as const }}
           className="fixed inset-0 z-[4000] flex items-center justify-center overflow-hidden"
           style={{ background: 'radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 60%, #000000 100%)' }}
         >
@@ -153,7 +153,7 @@ export function Preloader() {
             }}
             transition={{
               duration: 1,
-              ease: [0.16, 1, 0.3, 1],
+              ease: [0.16, 1, 0.3, 1] as const,
               scale: { duration: 0.6 },
             }}
             style={{ perspective: 800 }}
@@ -208,7 +208,7 @@ export function Preloader() {
               <motion.div
                 initial={{ left: 0, x: "-50%", y: "-50%" }}
                 animate={{ left: '100%' }}
-                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
+                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] as const, delay: 0.6 }}
                 className="absolute top-1/2 z-10 text-[#e8740a]"
               >
                 <Bike className="h-5 w-5 drop-shadow-[0_0_12px_rgba(232,116,10,0.8)]" strokeWidth={2.5} />
@@ -218,7 +218,7 @@ export function Preloader() {
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: '100%' }}
-                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
+                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] as const, delay: 0.6 }}
                 className="absolute left-0 top-0 h-full rounded-full"
                 style={{
                   background: 'linear-gradient(90deg, #e8740a, #f5a623)',
