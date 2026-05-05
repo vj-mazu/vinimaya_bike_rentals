@@ -31,7 +31,7 @@ export function Navbar({ onCartClick, cartCount }: { onCartClick: () => void; ca
           behavior: 'smooth'
         });
       }
-      setIsMobileMenuOpen(false);
+      setTimeout(() => setIsMobileMenuOpen(false), 50);
     }
   };
 

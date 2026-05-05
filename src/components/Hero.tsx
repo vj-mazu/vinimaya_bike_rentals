@@ -53,7 +53,7 @@ export function Hero() {
           loop
           playsInline
           preload="auto"
-          className="absolute left-1/2 top-1/2 h-[100vw] w-[100vh] -translate-x-1/2 -translate-y-1/2 -rotate-90 object-cover"
+          className="absolute left-1/2 top-1/2 h-[100vw] w-[120lvh] -translate-x-1/2 -translate-y-1/2 -rotate-90 object-cover min-h-[120%] min-w-[120%]"
         >
           <source src="/hero-new.mp4" type="video/mp4" />
         </video>
@@ -108,6 +108,16 @@ export function Hero() {
           <motion.div variants={itemVars} className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4">
             <a
               href="#selection"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.querySelector('#selection');
+                if (el) {
+                  const offset = 80;
+                  const bodyRect = document.body.getBoundingClientRect().top;
+                  const elementRect = el.getBoundingClientRect().top;
+                  window.scrollTo({ top: elementRect - bodyRect - offset, behavior: 'smooth' });
+                }
+              }}
               className="group inline-flex items-center justify-center gap-3 rounded-full px-8 py-4 text-[10px] font-bold uppercase tracking-[0.22em] text-white shadow-[0_16px_40px_rgba(232,116,10,0.25)] transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.97] sm:px-10 sm:py-5 sm:text-[11px]"
               style={{ background: 'linear-gradient(135deg, #e8740a 0%, #d4680a 100%)' }}
             >
