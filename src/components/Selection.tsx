@@ -152,14 +152,16 @@ export function Selection({ onBikeClick }: { onBikeClick: (bike: Bike) => void }
           <button onClick={previous} className="grid h-11 w-11 place-items-center rounded-full border border-black/8 bg-white text-[#151515] shadow-sm transition-all duration-300 hover:bg-[#151515] hover:text-white" aria-label="Previous bike">
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <div className="flex gap-1.5">
+          <div className="flex gap-2">
             {fleet.map((bike, index) => (
               <button
                 key={bike.id}
                 onClick={() => setActiveIndex(index)}
-                className={`h-2 rounded-full transition-all duration-400 ${index === activeIndex ? 'w-8 bg-[#e8740a]' : 'w-2 bg-black/15 hover:bg-black/25'}`}
+                className={`group relative h-4 w-6 grid place-items-center`}
                 aria-label={`Show ${bike.name}`}
-              />
+              >
+                <div className={`h-1.5 rounded-full transition-all duration-400 ${index === activeIndex ? 'w-6 bg-[#e8740a]' : 'w-1.5 bg-black/15 group-hover:bg-black/25'}`} />
+              </button>
             ))}
           </div>
           <button onClick={next} className="grid h-11 w-11 place-items-center rounded-full border border-black/8 bg-white text-[#151515] shadow-sm transition-all duration-300 hover:bg-[#151515] hover:text-white" aria-label="Next bike">

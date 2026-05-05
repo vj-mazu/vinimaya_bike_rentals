@@ -15,18 +15,31 @@ export function Navbar({ onCartClick, cartCount }: { onCartClick: () => void; ca
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const element = document.querySelector(href);
+      if (element) {
+        const offset = 80;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 40);
-    const handleHashChange = () => setIsMobileMenuOpen(false);
-    
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('hashchange', handleHashChange);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('hashchange', handleHashChange);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -38,7 +51,7 @@ export function Navbar({ onCartClick, cartCount }: { onCartClick: () => void; ca
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 relative">
-        <a href="#home" className="flex items-center gap-4 transition-transform duration-300 hover:scale-[1.02]">
+        <a href="#home" className="flex items-center gap-4 transition-transform duration-300 hover:scale-[1.02]" onClick={() => setIsMobileMenuOpen(false)}>
           <div
             className="relative h-12 w-12 overflow-hidden rounded-xl sm:h-14 sm:w-14 sm:rounded-2xl"
             style={{
@@ -62,7 +75,11 @@ export function Navbar({ onCartClick, cartCount }: { onCartClick: () => void; ca
           <ul className="flex gap-7 text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">
             {links.map(([label, href]) => (
               <li key={href}>
-                <a href={href} className="relative py-2 transition-colors duration-300 hover:text-[#e8740a]">
+                <a 
+                  href={href} 
+                  onClick={(e) => handleLinkClick(e, href)}
+                  className="relative py-2 transition-colors duration-300 hover:text-[#e8740a]"
+                >
                   {label}
                 </a>
               </li>
@@ -120,13 +137,14 @@ export function Navbar({ onCartClick, cartCount }: { onCartClick: () => void; ca
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
-            className="absolute left-0 top-full w-full overflow-hidden border-t border-white/[0.05] bg-[#0a0a0a]/95 backdrop-blur-2xl lg:hidden"
+            className="absolute left-0 top-full w-full overflow-hidden border-t border-white/[0.05] bg-[#0a0a0a]/95 backdrop-blur-2xl lg:hidden z-[3020]"
           >
             <ul className="grid gap-1 p-4">
               {links.map(([label, href]) => (
                 <li key={href}>
                   <a
                     href={href}
+                    onClick={(e) => handleLinkClick(e, href)}
                     className="block rounded-xl px-5 py-3.5 text-sm font-bold uppercase tracking-[0.15em] text-white/80 transition-colors hover:bg-white/[0.04] hover:text-[#e8740a]"
                   >
                     {label}
@@ -146,6 +164,7 @@ export function Navbar({ onCartClick, cartCount }: { onCartClick: () => void; ca
                   href="https://www.instagram.com/vinimaya_bike_rentals?igsh=cnNlcWR4OG13aHh3"
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="flex items-center gap-3 rounded-xl px-5 py-3.5 text-sm font-bold uppercase tracking-[0.15em] text-white/80 transition-colors hover:bg-white/[0.04] hover:text-[#e8740a]"
                 >
                   <InstagramIcon className="h-5 w-5" /> Instagram
