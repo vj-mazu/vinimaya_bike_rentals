@@ -1,4 +1,5 @@
 import { Phone, MapPin, Mail, Globe } from 'lucide-react';
+import { InstagramIcon } from './Icons';
 
 export function Footer() {
   return (
@@ -20,10 +21,11 @@ export function Footer() {
             {[
               { icon: Phone, href: "tel:+918884404365", label: "Call" },
               { icon: Mail, href: "mailto:contact@vinimayaselfdrive.in", label: "Email" },
-              { icon: MapPin, href: "#contact", label: "Location" },
-              { icon: Globe, href: "#home", label: "Website" }
+              { icon: MapPin, href: "https://maps.app.goo.gl/Fq5WFqkXea8mjKEM7", label: "Location" },
+              { icon: Globe, href: "#home", label: "Website" },
+              { icon: InstagramIcon, href: "https://www.instagram.com/vinimaya_bike_rentals?igsh=cnNlcWR4OG13aHh3", label: "Instagram" }
             ].map(({ icon: Icon, href, label }) => (
-              <a key={label} href={href} className="grid h-10 w-10 place-items-center rounded-xl bg-white/[0.05] text-white/60 transition-all duration-300 hover:bg-[#e8740a] hover:text-white" aria-label={label}>
+              <a key={label} href={href} target={href.startsWith('http') ? "_blank" : undefined} rel={href.startsWith('http') ? "noopener noreferrer" : undefined} className="grid h-10 w-10 place-items-center rounded-xl bg-white/[0.05] text-white/60 transition-all duration-300 hover:bg-[#e8740a] hover:text-white" aria-label={label}>
                 <Icon className="h-4 w-4" />
               </a>
             ))}

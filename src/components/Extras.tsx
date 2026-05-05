@@ -4,56 +4,71 @@ import { Mail, MapPin, MessageCircle, Minus, Phone, Plus } from 'lucide-react';
 
 const faqs = [
   {
-    question: "What documents are required for rental?",
-    answer: "Please bring an original driving license and Aadhaar card or another valid government ID. For premium bikes like the Himalayan 450, a PAN card or secondary ID may be requested."
+    q: "What documents are required for rental?",
+    a: "Please bring an original driving license and Aadhaar card or another valid government ID. For premium bikes like the Himalayan 450, a PAN card or secondary ID may be requested."
   },
   {
-    question: "Are the prices shown on the website final?",
-    answer: "The website displays starting day rates. Final price depends on rental duration, vehicle availability, delivery requirements, deposit amount, and return timing."
+    q: "Are the prices shown on the website final?",
+    a: "The website displays starting day rates. Final price depends on rental duration, vehicle availability, delivery requirements, deposit amount, and return timing."
   },
   {
-    question: "Is a helmet included with the rental?",
-    answer: "Yes, one rider helmet is included with every confirmed rental. If you need a pillion helmet, please inform the team at booking."
+    q: "Is a helmet included with the rental?",
+    a: "Yes, one rider helmet is included with every confirmed rental. If you need a pillion helmet, please inform the team at booking."
   },
   {
-    question: "Do you offer doorstep delivery?",
-    answer: "Doorstep delivery is available in selected Bengaluru areas. Charges and timing are confirmed after you share your pickup location."
+    q: "Do you offer doorstep delivery?",
+    a: "Doorstep delivery is available in selected Bengaluru areas. Charges and timing are confirmed after you share your pickup location."
   },
   {
-    question: "How do I confirm a booking?",
-    answer: "Browse the fleet, select your vehicle, and send an enquiry via WhatsApp. The team will confirm availability, deposit, documents, and pickup time."
+    q: "How do I confirm a booking?",
+    a: "Browse the fleet, select your vehicle, and send an enquiry via WhatsApp. The team will confirm availability, deposit, documents, and pickup time."
   }
 ];
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+
   return (
-    <section id="faq" className="bg-[#f8f5ee] py-20 sm:py-28">
-      <div className="mx-auto max-w-4xl px-6">
-        <div className="mb-10 text-center">
+    <section className="bg-white py-20 sm:py-32">
+      <div className="mx-auto max-w-3xl px-6">
+        <div className="mb-12 text-center">
           <span className="mb-4 inline-flex items-center gap-3 rounded-full border border-[#e8740a]/15 bg-[#e8740a]/[0.06] px-4 py-2">
             <span className="h-1.5 w-1.5 rounded-full bg-[#e8740a]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#e8740a]">FAQ</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#e8740a]">Support</span>
           </span>
-          <h2 className="font-['Noto_Serif'] text-4xl font-bold tracking-tighter text-[#151515] sm:text-6xl">Clear answers.</h2>
+          <h2 className="font-['Noto_Serif'] text-4xl font-bold tracking-tighter text-[#151515] sm:text-5xl">
+            Frequently Asked
+          </h2>
         </div>
-        <div className="overflow-hidden rounded-2xl border border-black/[0.06] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.05)]">
-          {faqs.map((faq, index) => (
-            <div key={faq.question} className="border-b border-black/[0.05] last:border-b-0">
-              <button onClick={() => setOpenIndex(openIndex === index ? null : index)} className="flex w-full items-center justify-between gap-5 px-6 py-5 text-left">
-                <span className="text-base font-bold text-[#151515] sm:text-lg">{faq.question}</span>
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#f8f5ee] text-[#e8740a]">
-                  {openIndex === index ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+
+        <div className="grid gap-4">
+          {faqs.map((faq, i) => (
+            <button
+              key={i}
+              onClick={() => setOpenIndex(openIndex === i ? null : i)}
+              className="group rounded-2xl border border-black/[0.06] bg-[#f8f5ee] px-6 py-5 text-left transition-colors hover:border-[#e8740a]/30 sm:px-8 sm:py-6"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-base font-bold text-[#151515] sm:text-lg">{faq.q}</span>
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-black/5 text-black/40 transition-colors group-hover:bg-[#e8740a] group-hover:text-white">
+                  {openIndex === i ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
                 </span>
-              </button>
+              </div>
               <AnimatePresence>
-                {openIndex === index && (
-                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} className="overflow-hidden">
-                    <p className="px-6 pb-5 text-sm font-medium leading-7 text-[#151515]/55">{faq.answer}</p>
+                {openIndex === i && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden"
+                  >
+                    <p className="pt-4 text-sm font-medium leading-relaxed text-[#151515]/60 sm:text-base">
+                      {faq.a}
+                    </p>
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </button>
           ))}
         </div>
       </div>
@@ -74,8 +89,8 @@ export function Contact() {
           <p className="mt-6 max-w-xl text-base font-medium leading-7 text-[#151515]/50 sm:text-lg">Call or WhatsApp with the bike name, dates, and pickup preference. Availability confirmed directly by the Vinimaya team.</p>
           <div className="mt-8 grid gap-3">
             <ContactRow icon={Phone} label="Phone" value="+91 88844 04365" href="tel:+918884404365" />
-            <ContactRow icon={Mail} label="Email" value="contact@vinimayaselfdrive.in" href="mailto:contact@vinimayaselfdrive.in" />
-            <ContactRow icon={MapPin} label="Address" value="7th Main Rd, 3rd Cross, Maruthi Nagar, Yelahanka, Bengaluru 560064" />
+            <ContactRow icon={Mail} label="Email" value="contact@vinimayaselfdrive.in" href="mailto:contact@vinimayaselfdrive.in" copyOnDesktop={true} />
+            <ContactRow icon={MapPin} label="Address" value="7th Main Rd, 3rd Cross, Maruthi Nagar, Yelahanka, Bengaluru 560064" href="https://maps.app.goo.gl/Fq5WFqkXea8mjKEM7" />
           </div>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <a href="https://wa.me/918884404365" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-3 rounded-full bg-[#25d366] px-7 py-4 text-[10px] font-bold uppercase tracking-[0.18em] text-white shadow-[0_14px_40px_rgba(37,211,102,0.25)]">
@@ -102,19 +117,37 @@ export function Contact() {
   );
 }
 
-function ContactRow({ icon: Icon, label, value, href }: { icon: typeof Phone; label: string; value: string; href?: string }) {
+function ContactRow({ icon: Icon, label, value, href, copyOnDesktop = false }: { icon: any; label: string; value: string; href?: string; copyOnDesktop?: boolean; }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (copyOnDesktop && window.innerWidth >= 768) {
+      e.preventDefault();
+      navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
   const content = (
-    <div className="flex gap-3 rounded-xl border border-black/[0.06] bg-[#f8f5ee] p-3.5 transition-all duration-300 hover:border-[#e8740a]/25 sm:gap-4 sm:p-4">
+    <div className="flex gap-3 rounded-xl border border-black/[0.06] bg-[#f8f5ee] p-3.5 transition-all duration-300 hover:border-[#e8740a]/25 sm:gap-4 sm:p-4 w-full">
       <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-white text-[#e8740a] shadow-sm sm:h-11 sm:w-11 sm:rounded-xl">
         <Icon className="h-4 w-4" />
       </div>
-      <div className="min-w-0 flex-1">
-        <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#151515]/35">{label}</div>
-        <div className="mt-1 break-words text-xs font-bold leading-5 text-[#151515] sm:text-sm sm:leading-6">{value}</div>
+      <div className="min-w-0 flex-1 flex flex-col justify-center">
+        <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#151515]/35">
+          {label} {copied && <span className="ml-1 text-[#e8740a] lowercase tracking-normal">(Copied)</span>}
+        </div>
+        <div className="mt-0.5 break-words text-xs font-bold leading-5 text-[#151515] sm:text-sm sm:leading-6">{value}</div>
       </div>
     </div>
   );
-  return href ? <a href={href}>{content}</a> : content;
+
+  return (href || copyOnDesktop) ? (
+    <a href={href || '#'} target={href?.startsWith('http') ? "_blank" : undefined} rel={href?.startsWith('http') ? "noopener noreferrer" : undefined} onClick={handleClick} className="block group w-full">
+      {content}
+    </a>
+  ) : <div className="w-full">{content}</div>;
 }
 
 export function WhatsAppButton() {
