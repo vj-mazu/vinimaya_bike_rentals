@@ -8,6 +8,7 @@ export function Hero() {
     target: sectionRef,
     offset: ["start start", "end start"]
   });
+  
   const opacityText = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const yText = useTransform(scrollYProgress, [0, 0.5], [0, -60]);
   const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
@@ -19,19 +20,19 @@ export function Hero() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.6
+        staggerChildren: 0.15,
+        delayChildren: 0.8
       }
     }
   };
 
   const itemVars = {
-    hidden: { y: 60, opacity: 0, filter: "blur(8px)" },
+    hidden: { y: 100, opacity: 0, filter: "blur(12px)" },
     visible: {
       y: 0,
       opacity: 1,
       filter: "blur(0px)",
-      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }
+      transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] as const }
     }
   };
 
@@ -52,19 +53,16 @@ export function Hero() {
           muted
           loop
           playsInline
-          preload="auto"
           className="absolute left-1/2 top-1/2 h-[100vw] w-[120lvh] -translate-x-1/2 -translate-y-1/2 -rotate-90 object-cover min-h-[120%] min-w-[120%]"
         >
           <source src="/hero-new.mp4" type="video/mp4" />
         </video>
 
-        {/* Lighter overlays for better video visibility on desktop */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/15 to-black/60" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0a0a0a] to-transparent" />
       </motion.div>
 
-      {/* Content */}
       <motion.div
         style={{ opacity: opacityText, y: yText }}
         className="relative z-10 mx-auto flex min-h-svh max-w-7xl flex-col justify-end px-6 pb-12 sm:justify-center sm:pb-0"
@@ -75,7 +73,6 @@ export function Hero() {
           animate="visible"
           className="max-w-5xl pt-36 sm:pt-32"
         >
-          {/* Eyebrow — pushed below navbar with pt */}
           <motion.div variants={itemVars} className="mb-6 sm:mb-8">
             <span className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 backdrop-blur-xl">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#e8740a]" />
@@ -83,7 +80,6 @@ export function Hero() {
             </span>
           </motion.div>
 
-          {/* Title */}
           <h1 className="flex flex-wrap gap-x-3 font-['Noto_Serif'] text-[clamp(2.5rem,7.5vw,9rem)] font-black leading-[0.92] tracking-tighter sm:gap-x-5">
             {titleWords.map((word, i) => (
               <span key={i} className="overflow-hidden py-1 sm:py-2">
@@ -101,10 +97,9 @@ export function Hero() {
             variants={itemVars}
             className="mt-6 max-w-xl text-sm font-medium leading-relaxed text-white/55 sm:mt-8 sm:max-w-2xl sm:text-base lg:text-lg"
           >
-            Bengaluru's premier self-drive destination. A curated fleet of verified bikes and scooters — from the Royal Enfield Himalayan to the Honda Dio — with a legacy of trust and transparency.
+            Bengaluru's premier self-drive destination. A curated fleet of verified bikes and scooters.
           </motion.p>
 
-          {/* CTA buttons — stacked on mobile, inline on desktop */}
           <motion.div variants={itemVars} className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4">
             <a
               href="#selection"
@@ -133,9 +128,11 @@ export function Hero() {
             </a>
           </motion.div>
 
-          {/* Stats */}
           <motion.div
-            variants={itemVars}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { delay: 1.6, duration: 1 } }
+            }}
             className="mt-10 flex flex-wrap gap-8 border-t border-white/[0.08] pt-6 sm:mt-14 sm:gap-14 sm:pt-8"
           >
             {[
@@ -152,17 +149,15 @@ export function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Bottom gradient line */}
       <div className="absolute bottom-0 left-0 z-20 h-px w-full bg-gradient-to-r from-transparent via-[#e8740a]/30 to-transparent" />
 
-      {/* Scroll Indicator — desktop only */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.5, duration: 1 }}
         className="absolute bottom-8 right-8 z-20 hidden flex-col items-center gap-4 lg:flex"
       >
-        <span className="text-[9px] font-bold uppercase tracking-[0.5em] text-white/30 [writing-mode:vertical-lr]">Scroll</span>
+        <span className="text-[9px] font-bold uppercase tracking-[0.5em] text-white/30" style={{ writingMode: 'vertical-lr' }}>Scroll</span>
         <motion.div
           animate={{ height: [24, 48, 24] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
